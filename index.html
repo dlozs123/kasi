@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本地MV播放器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="sidebar">
+        <!-- 分类和歌曲列表由JS填充 -->
+    </div>
+    <div id="main">
+        <button id="toggleSidebar">☰</button>
+     
+        <div id="player-container">
+            <video id="video-player"></video>
+            <img id="cover-img" src="" alt="封面">
+            <div id="mode-hint"></div>
+        </div>
+     
+        <div id="controls">
+            <button class="control-btn" id="prev-btn">⏮</button>
+            <button class="control-btn" id="play-pause">▶️</button>
+            <button class="control-btn" id="next-btn">⏭</button>
+       
+            <div id="progress-container">
+                <span class="time-display" id="current-time">0:00</span>
+                <input type="range" id="progress" value="0" min="0" max="100">
+                <span class="time-display" id="duration">0:00</span>
+            </div>
+       
+            <div id="volume-container">
+                <span style="margin-right: 8px;">🔊</span>
+                <input type="range" id="volume" value="80" min="0" max="100">
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
