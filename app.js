@@ -51,7 +51,8 @@ function buildSongsAndSidebar() {
             const li = document.createElement("li");
             li.textContent = title;  // 只显示歌名，无 artist
             li.dataset.globalIndex = globalIndex;  // 记录全局索引
-            li.onclick = () => loadSong(globalIndex);
+            // 修复：使用 dataset.globalIndex 捕获当前索引，避免闭包问题
+            li.onclick = () => loadSong(parseInt(li.dataset.globalIndex));
             ul.appendChild(li);
 
             // 记录该 li 的全局索引（用于高亮）
