@@ -39,7 +39,7 @@ const categories = {
     "月に叢雲華に風",
     "花時計と夢",
     "花月夜",
-    "少女フラクタル 囚われのアイ(with 寧彩ねい)",
+    "少女フラクタル  囚われのアイ(with 寧彩ねい)",
     "今宵、ヴァンパイアは",
     "Opposite World",
     "時計仕掛けの命に抱かれ",
@@ -53,3 +53,4 @@ const categories = {
     "Chronicle and Scarlet"
   ]
 };
+
