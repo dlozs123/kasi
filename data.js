@@ -50,5 +50,6 @@ const categories = {
   "幻想症候群",
   "孤独月",
   "Await"
+  "Chronicle and Scarlet"
 ]
 };
