@@ -49,7 +49,8 @@ const categories = {
   "夕立、君と隠れ処",
   "幻想症候群",
   "孤独月",
-  "Await"
+  "Await",
   "Chronicle and Scarlet"
 ]
+
 };
