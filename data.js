@@ -51,8 +51,10 @@ const categories = {
     "孤独月",
     "Await",
     "Chronicle and Scarlet",
-    "Guilty of cutie"
+    "Guilty of cutie",
+    "キラメキ☆MOMENT FANTASIA"
   ]
 };
+
 
 
