@@ -256,8 +256,22 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ====== 目录栏折叠 ======
+let sidebarCollapsed = false;
+let lastSidebarWidth = 250;  // 记住折叠前的宽度
+
 toggleSidebarBtn.onclick = () => {
-    sidebar.classList.toggle("collapsed");
+    sidebarCollapsed = !sidebarCollapsed;
+    
+    if (sidebarCollapsed) {
+        // 折叠：记住当前宽度，然后设为0
+        lastSidebarWidth = sidebar.offsetWidth;
+        sidebar.style.width = "0";
+        sidebar.classList.add("collapsed");
+    } else {
+        // 展开：恢复之前的宽度
+        sidebar.style.width = lastSidebarWidth + "px";
+        sidebar.classList.remove("collapsed");
+    }
 };
 
 // ====== 视图切换（歌曲列表/歌词） ======
