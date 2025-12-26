@@ -9,8 +9,28 @@
 </head>
 <body>
     <div id="sidebar">
-        <!-- 分类和歌曲列表由JS填充 -->
+        <!-- 切换按钮区域 -->
+        <div id="sidebar-header">
+            <button id="toggleView" class="view-toggle-btn active" data-view="playlist">歌曲列表</button>
+            <button id="toggleLyrics" class="view-toggle-btn" data-view="lyrics">歌词</button>
+        </div>
+        
+        <!-- 歌曲列表容器 -->
+        <div id="playlist-container">
+            <!-- 分类和歌曲列表由JS填充 -->
+        </div>
+        
+        <!-- 歌词显示容器 -->
+        <div id="lyrics-container" style="display: none;">
+            <div id="lyrics-content">
+                <p class="lyrics-placeholder">选择一首歌曲查看歌词</p>
+            </div>
+        </div>
+        
+        <!-- 拖拽条 -->
+        <div id="resize-handle"></div>
     </div>
+    
     <div id="main">
         <button id="toggleSidebar">☰</button>
      

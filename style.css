@@ -16,21 +16,65 @@ body {
 /* 左侧目录栏 */
 #sidebar {
     width: 250px;
+    min-width: 180px;
+    max-width: 600px;
     background: rgba(30, 30, 46, 0.8);
-    overflow-y: auto;
-    transition: all 0.3s ease;
+    overflow: hidden;
+    transition: width 0.3s ease;
     backdrop-filter: blur(10px);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 10;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 #sidebar.collapsed {
     width: 0;
+    min-width: 0;
     padding: 0;
     overflow: hidden;
 }
 
-#sidebar h2 {
+/* 侧边栏顶部切换按钮区域 */
+#sidebar-header {
+    display: flex;
+    padding: 15px 10px;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(20, 20, 36, 0.5);
+}
+
+.view-toggle-btn {
+    flex: 1;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.view-toggle-btn:hover {
+    background: rgba(233, 69, 96, 0.2);
+    color: #eee;
+}
+
+.view-toggle-btn.active {
+    background: rgba(233, 69, 96, 0.5);
+    color: #fff;
+    font-weight: 500;
+}
+
+/* 歌曲列表容器 */
+#playlist-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+#playlist-container h2 {
     padding: 20px 15px 10px;
     font-size: 1.2rem;
     color: #e94560;
@@ -38,12 +82,12 @@ body {
     margin-bottom: 10px;
 }
 
-#sidebar ul {
+#playlist-container ul {
     list-style: none;
     padding: 0 10px 10px;
 }
 
-#sidebar li {
+#playlist-container li {
     padding: 12px 15px;
     cursor: pointer;
     border-radius: 8px;
@@ -51,14 +95,64 @@ body {
     transition: all 0.2s ease;
 }
 
-#sidebar li:hover {
+#playlist-container li:hover {
     background: rgba(233, 69, 96, 0.2);
 }
 
-#sidebar li.active {
+#playlist-container li.active {
     background: rgba(233, 69, 96, 0.3);
     color: #e94560;
     font-weight: 500;
+}
+
+/* 歌词容器 */
+#lyrics-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+#lyrics-content {
+    line-height: 1.8;
+    font-size: 1rem;
+    color: #ddd;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#lyrics-content p {
+    margin-bottom: 10px;
+}
+
+.lyrics-placeholder {
+    color: #888;
+    text-align: center;
+    padding: 40px 20px;
+    font-style: italic;
+}
+
+.lyrics-error {
+    color: #e94560;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* 拖拽条 */
+#resize-handle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: transparent;
+    cursor: ew-resize;
+    z-index: 20;
+    transition: background 0.2s ease;
+}
+
+#resize-handle:hover,
+#resize-handle.dragging {
+    background: rgba(233, 69, 96, 0.5);
 }
 
 /* 右侧播放器区域 */
@@ -240,4 +334,26 @@ body {
     border-radius: 50%;
     background: #e94560;
     cursor: pointer;
+}
+
+/* 滚动条美化 */
+#playlist-container::-webkit-scrollbar,
+#lyrics-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#playlist-container::-webkit-scrollbar-track,
+#lyrics-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#playlist-container::-webkit-scrollbar-thumb,
+#lyrics-container::-webkit-scrollbar-thumb {
+    background: rgba(233, 69, 96, 0.5);
+    border-radius: 4px;
+}
+
+#playlist-container::-webkit-scrollbar-thumb:hover,
+#lyrics-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(233, 69, 96, 0.7);
 }

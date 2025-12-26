@@ -3,6 +3,12 @@ let songs = [];  // 扁平化的歌曲数组，用于播放
 let songGlobalIndices = [];  // 每个分类下歌曲的全局索引映射，用于侧边栏高亮
 const sidebar = document.getElementById("sidebar");
 const toggleSidebarBtn = document.getElementById("toggleSidebar");
+const playlistContainer = document.getElementById("playlist-container");
+const lyricsContainer = document.getElementById("lyrics-container");
+const lyricsContent = document.getElementById("lyrics-content");
+const toggleViewBtn = document.getElementById("toggleView");
+const toggleLyricsBtn = document.getElementById("toggleLyrics");
+const resizeHandle = document.getElementById("resize-handle");
 const video = document.getElementById("video-player");
 const cover = document.getElementById("cover-img");
 const playBtn = document.getElementById("play-pause");
@@ -19,11 +25,15 @@ let currentSongIndex = 0;
 let isMVMode = true;
 let hideControlsTimeout = null;
 let doubleClickTimer = null;
+let currentView = "playlist";  // "playlist" 或 "lyrics"
+let isDragging = false;
+let startX = 0;
+let startWidth = 0;
 
 // ====== 基于分类构建歌曲数据和侧边栏 ======
 function buildSongsAndSidebar() {
     let globalIndex = 0;
-    sidebar.innerHTML = "";  // 清空侧边栏
+    playlistContainer.innerHTML = "";  // 清空歌曲列表
 
     Object.keys(categories).forEach(categoryName => {
         const songsInCategory = categories[categoryName];
@@ -31,11 +41,11 @@ function buildSongsAndSidebar() {
         // 创建分类标题
         const categoryH2 = document.createElement("h2");
         categoryH2.textContent = categoryName;
-        sidebar.appendChild(categoryH2);
+        playlistContainer.appendChild(categoryH2);
 
         // 创建该分类的 ul
         const ul = document.createElement("ul");
-        sidebar.appendChild(ul);
+        playlistContainer.appendChild(ul);
 
         // 为该分类歌曲创建 li，并记录全局索引
         songsInCategory.forEach(title => {
@@ -43,7 +53,8 @@ function buildSongsAndSidebar() {
             const song = {
                 title: title,
                 file: `https://r5.dlozs.top/${title}.mp4`,
-                cover: `https://r5.dlozs.top/${title}.jpg`
+                cover: `https://r5.dlozs.top/${title}.jpg`,
+                lyrics: `kasi/${title}.txt`  // 歌词文件路径
             };
             songs.push(song);
 
@@ -69,7 +80,7 @@ function loadSong(index) {
     const song = songs[currentSongIndex];
 
     // 更新侧边栏 active（所有 li）
-    const allLis = sidebar.querySelectorAll("li");
+    const allLis = playlistContainer.querySelectorAll("li");
     allLis.forEach(li => li.classList.remove("active"));
     const activeLi = Array.from(allLis).find(li => parseInt(li.dataset.globalIndex) === currentSongIndex);
     if (activeLi) activeLi.classList.add("active");
@@ -86,10 +97,42 @@ function loadSong(index) {
     video.play();
     playBtn.textContent = "⏸️";
 
+    // 加载歌词
+    loadLyrics(song.lyrics);
+
     // 添加播放结束事件监听器
     video.onended = function() {
         nextSong();
     };
+}
+
+// ====== 加载歌词 ======
+function loadLyrics(lyricsPath) {
+    // 显示加载中
+    lyricsContent.innerHTML = '<p class="lyrics-placeholder">加载歌词中...</p>';
+    
+    fetch(lyricsPath)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('歌词文件不存在');
+            }
+            return response.text();
+        })
+        .then(text => {
+            if (text.trim() === '') {
+                lyricsContent.innerHTML = '<p class="lyrics-placeholder">暂无歌词</p>';
+            } else {
+                // 将文本按行分割并显示
+                const lines = text.split('\n');
+                lyricsContent.innerHTML = lines
+                    .map(line => `<p>${line || '&nbsp;'}</p>`)
+                    .join('');
+            }
+        })
+        .catch(error => {
+            console.error('加载歌词失败:', error);
+            lyricsContent.innerHTML = '<p class="lyrics-error">暂无歌词</p>';
+        });
 }
 
 // ====== 下一首歌曲 ======
@@ -216,6 +259,58 @@ document.addEventListener("keydown", (e) => {
 toggleSidebarBtn.onclick = () => {
     sidebar.classList.toggle("collapsed");
 };
+
+// ====== 视图切换（歌曲列表/歌词） ======
+toggleViewBtn.onclick = () => {
+    currentView = "playlist";
+    playlistContainer.style.display = "block";
+    lyricsContainer.style.display = "none";
+    toggleViewBtn.classList.add("active");
+    toggleLyricsBtn.classList.remove("active");
+};
+
+toggleLyricsBtn.onclick = () => {
+    currentView = "lyrics";
+    playlistContainer.style.display = "none";
+    lyricsContainer.style.display = "block";
+    toggleLyricsBtn.classList.add("active");
+    toggleViewBtn.classList.remove("active");
+};
+
+// ====== 侧边栏宽度拖拽调整 ======
+resizeHandle.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    startWidth = sidebar.offsetWidth;
+    resizeHandle.classList.add("dragging");
+    document.body.style.cursor = "ew-resize";
+    document.body.style.userSelect = "none";
+    e.preventDefault();
+});
+
+document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    
+    const delta = e.clientX - startX;
+    const newWidth = startWidth + delta;
+    
+    // 限制宽度在最小值和最大值之间
+    const minWidth = 180;
+    const maxWidth = 600;
+    
+    if (newWidth >= minWidth && newWidth <= maxWidth) {
+        sidebar.style.width = newWidth + "px";
+    }
+});
+
+document.addEventListener("mouseup", () => {
+    if (isDragging) {
+        isDragging = false;
+        resizeHandle.classList.remove("dragging");
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
+    }
+});
 
 // ====== 控制栏自动隐藏 ======
 function showControls() {
