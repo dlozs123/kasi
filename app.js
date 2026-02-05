@@ -34,6 +34,7 @@ let startX = 0;
 let startWidth = 0;
 
 // ====== 基于分类构建歌曲数据和侧边栏 ======
+// ====== 基于分类构建歌曲数据和侧边栏 ======
 function buildSongsAndSidebar() {
     let globalIndex = 0;
     playlistContainer.innerHTML = "";
@@ -49,24 +50,18 @@ function buildSongsAndSidebar() {
         playlistContainer.appendChild(ul);
 
         songsInCategory.forEach(title => {
-            // 修改点：链接后缀改为 .m3u8
-            // 如果你在 data.js 里已经写了完整链接，这里直接用 title 即可
             const baseUrl = "https://r5.dlozs.top/";
             const fileExt = ".m3u8"; 
-            const coverBaseUrl = "https://r5.dlozs.top/jpg/";
-            const streamBaseUrl = "https://r5.dlozs.top/mp4/";
-            const fileExt = ".m3u8";
             
             const song = {
                 title: title,
-                file: `${baseUrl}${title}${fileExt}`, 
-                cover: `${baseUrl}${title}.jpg`,
-                lyrics: `kasi/${title}.txt`␍␊
-            };␍␊
-                file: `${streamBaseUrl}${title}${fileExt}`,
-                cover: `${coverBaseUrl}${title}.jpg`,
-                lyrics: `kasi/${title}.txt`␊
-            };␊
+                // 修改点 1：在路径中加入 mp4/ 文件夹
+                file: `${baseUrl}mp4/${title}${fileExt}`, 
+                // 修改点 2：在路径中加入 jpg/ 文件夹
+                cover: `${baseUrl}jpg/${title}.jpg`,
+                // 歌词路径保持在 kasi/ 文件夹下不变
+                lyrics: `kasi/${title}.txt`
+            };
             songs.push(song);
 
             const li = document.createElement("li");
@@ -372,5 +367,4 @@ showControls();
 buildSongsAndSidebar();
 if (songs.length > 0) {
     loadSong(0);
-
 }
