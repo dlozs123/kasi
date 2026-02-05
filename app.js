@@ -53,13 +53,20 @@ function buildSongsAndSidebar() {
             // 如果你在 data.js 里已经写了完整链接，这里直接用 title 即可
             const baseUrl = "https://r5.dlozs.top/";
             const fileExt = ".m3u8"; 
+            const coverBaseUrl = "https://r5.dlozs.top/jpg/";
+            const streamBaseUrl = "https://r5.dlozs.top/mp4/";
+            const fileExt = ".m3u8";
             
             const song = {
                 title: title,
                 file: `${baseUrl}${title}${fileExt}`, 
                 cover: `${baseUrl}${title}.jpg`,
-                lyrics: `kasi/${title}.txt`
-            };
+                lyrics: `kasi/${title}.txt`␍␊
+            };␍␊
+                file: `${streamBaseUrl}${title}${fileExt}`,
+                cover: `${coverBaseUrl}${title}.jpg`,
+                lyrics: `kasi/${title}.txt`␊
+            };␊
             songs.push(song);
 
             const li = document.createElement("li");
@@ -365,4 +372,5 @@ showControls();
 buildSongsAndSidebar();
 if (songs.length > 0) {
     loadSong(0);
+
 }
