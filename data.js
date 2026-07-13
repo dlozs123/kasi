@@ -51,7 +51,13 @@ const categories = {
     "孤独月",
     "Await",
     "Chronicle and Scarlet",
-    "Guilty of cutie",
+    "Scarlet Snow Fantasy",
+    "悪の証明を",
+    "悪戯センセーション",
+    "紅い月",
+    "溺愛エクリプス",
+    "宵闇ニ咲ク花",
+    "朱殷の翼",
     "キラメキ☆MOMENT FANTASIA"
   ]
 };
