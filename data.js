@@ -58,7 +58,8 @@ const categories = {
     "溺愛エクリプス",
     "宵闇ニ咲ク花",
     "朱殷の翼",
-    "キラメキ☆MOMENT FANTASIA"
+    "キラメキ☆MOMENT FANTASIA",
+    "必然のカタストロフィ"
   ]
 };
 
