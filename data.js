@@ -59,7 +59,9 @@ const categories = {
     "宵闇ニ咲ク花",
     "朱殷の翼",
     "キラメキ☆MOMENT FANTASIA",
-    "必然のカタストロフィ"
+    "必然のカタストロフィ",
+    "U.N. Owen Was Her",
+    "KuRENAi-forbidden dream-"
   ]
 };
 
