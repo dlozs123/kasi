@@ -61,7 +61,8 @@ const categories = {
     "キラメキ☆MOMENT FANTASIA",
     "必然のカタストロフィ",
     "U.N. Owen Was Her",
-    "KuRENAi-forbidden dream-"
+    "KuRENAi-forbidden dream-",
+    "恋してFruity Soup"
   ]
 };
 
