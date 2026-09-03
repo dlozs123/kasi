@@ -50,7 +50,7 @@ function buildSongsAndSidebar() {
         playlistContainer.appendChild(ul);
 
         songsInCategory.forEach(title => {
-            const baseUrl = "https://r5.dlozs.top/";
+            const baseUrl = "https://r5.flan.uno/";
             const fileExt = ".m3u8"; 
             
             const song = {
