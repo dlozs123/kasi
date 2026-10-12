@@ -62,7 +62,9 @@ const categories = {
     "必然のカタストロフィ",
     "U.N. Owen Was Her",
     "KuRENAi-forbidden dream-",
-    "恋してFruity Soup"
+    "恋してFruity Soup",
+    "スカーレット・キャラメリゼ",
+    "紅月ノスタルジア"
   ]
 };
 
