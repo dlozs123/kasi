@@ -65,6 +65,20 @@ const categories = {
     "恋してFruity Soup",
     "スカーレット・キャラメリゼ",
     "紅月ノスタルジア"
+  ],
+  "其他": [
+    "閃の軌跡ＩＩ",
+    "明日への軌跡",
+    "行き着く先",
+    "Supernova",
+    "W-B-X-W",
+    "Life-is-SHOW-TIME",
+    "Switch-On",
+    "我ら思う-故に我ら在り",
+    "EXCITE",
+    "Be-The-One",
+    "仮面ライダージオウ",
+    "仮面ライダーガッチャード"
   ]
 };
 
